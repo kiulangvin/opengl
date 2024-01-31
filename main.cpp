@@ -1,4 +1,5 @@
 #include<iostream>
+
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
@@ -12,6 +13,9 @@
 #include "src/Render/Shader.h"
 
 
+#include "imgui.h"
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
 
 void onResize(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -21,7 +25,15 @@ void onKey(int key, int action, int mods) {
 	std::cout << key << std::endl;
 }
 
+void initImgui() {
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext(); //创建上下文
 
+	// 设置渲染器后端
+	ImGui_ImplGlfw_InitForOpenGL(app->GetWindow(), true);
+	ImGui::StyleColorsDark();
+	ImGui_ImplOpenGL3_Init();
+}
 
 
 int main() {
@@ -56,14 +68,27 @@ int main() {
 	Shader shader("D:/03_Developer/01_My_Github/opengl/res/shaders/Basic.shader");
 	shader.Bind();
 
+
+	initImgui();
+	
+
 	//执行窗体循环
 	while (app->update())
 	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+		ImGui::ShowDemoWindow();
+
 		// 执行画布清理操作
 		glClear(GL_COLOR_BUFFER_BIT);
 		va.Bind();
 		shader.Bind();
 		glDrawArrays(GL_TRIANGLES, 0, 3);
+		
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 	// 退出程序
 	glfwTerminate();

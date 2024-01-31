@@ -38,6 +38,9 @@ public:
 	uint32_t getHeight() const {
 		return mHeight;
 	};
+	GLFWwindow* GetWindow() const {
+		return mWindow;
+	}
 
 	void setResizeCallback(ResizeCallback callback) {
 		mResizeCallback = callback;

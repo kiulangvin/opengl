@@ -1,2 +1,2 @@
 # opengl
-OpenGL、CMake、GLFW、GLAD
+C++、OpenGL、CMake、GLFW、GLAD、imgui
