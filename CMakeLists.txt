@@ -4,6 +4,7 @@ project(OpenGL)
 
 set(CMAKE_CXX_STANDARD 17)
 
+
 include_directories(
 	SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/include
 )
